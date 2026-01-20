@@ -34,6 +34,8 @@ build as a portfolio porject demonstrating modern full-stack development, API in
 ## 📂 Project Structure
 ![Project structure diagram](./images/project-structure.png)
 
+<img src="./images/project-structure.png" width="500"/>
+
 
 ---
 
@@ -43,7 +45,7 @@ build as a portfolio porject demonstrating modern full-stack development, API in
 
 Create `.env` iside `backend/`:
 
-```env
+``env
 DATABASE_URL=postgresql://username:password@localhost:5432/dbname
 OPEN_API_KEY=your_openai_key
 ADMIN_TOKEN=your_admin_token
@@ -52,6 +54,8 @@ Install dependencies and run:
 
 ![Install dependencies and run](./images/dependenciesrun.jpg)
 
+<img src="./images/dependenciesrun.jpg" width="500"/>
+
 
 Frontend
 
@@ -59,9 +63,14 @@ Create .env.local iside frontend/:
 
 ![Create .env.local inside frontend/](./images/frontend.env.jpg)
 
+<img src="./images/frontend.env.jpg" width="500"/>
+
+
 Run frontend:
 
 ![Run frontend/](./images/runfrontend.jpg)
+
+<img src="./images/runfrontend.jpg" width="500"/>
 
 🔐 Admin Mode
 
@@ -99,4 +108,6 @@ This project is for educational and
 portfolio purposes.
 
 ![Final step](./images/finalstep.jpg)
+
+<img src="./images/finalstep.jpg" width="500"/>
 
