@@ -73,7 +73,7 @@ Run frontend:
 
 ---
 
-🔐 Admin Mode
+## 🔐 Admin Mode
 
 Admin actions (create, update, delete)
 are enabled when:
@@ -87,7 +87,7 @@ control for demonstartion purposes.
 
 ---
 
-🚀 Future Improvements
+## 🚀 Future Improvements
 
 . User authentication
 
@@ -102,7 +102,7 @@ control for demonstartion purposes.
 
 ---
 
-👩🏽‍💻 Author
+## 👩🏽‍💻 Author
 
 Yanay Sanchez Garcia
 Full-Stack Developer & Artist
@@ -110,7 +110,7 @@ Full-Stack Developer & Artist
 
 ---
 
-📄 License
+## 📄 License
 
 This project is for educational and
 portfolio purposes.
