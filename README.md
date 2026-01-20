@@ -1,8 +1,8 @@
 # 📚 AI Reading Companion
 
-A full-stack web appliocation that helps users track books they read and generate AI-powered summaries and notes.
+A full-stack web application that helps users track books they read and generate AI-powered summaries and notes.
 
-build as a portfolio porject demonstrating modern full-stack development, API integration, and clean environment configuration.
+Build as a portfolio project demonstrating modern full-stack development, API integration, and clean environment configuration.
 
 ---
 
@@ -34,7 +34,7 @@ build as a portfolio porject demonstrating modern full-stack development, API in
 ## 📂 Project Structure
 
 <p align="center">
-  <img src="./images/project-structure.png" width="500" />
+  <img src="./images/project-structure.png" width="400" />
 </p>
 
 
@@ -53,7 +53,7 @@ ADMIN_TOKEN=your_admin_token
 Install dependencies and run:
 
 <p align="center">
-  <img src="./images/dependenciesrun.jpg" width="500"/>
+  <img src="./images/dependenciesrun.jpg" width="400"/>
 </p>
 
 Frontend
@@ -67,19 +67,21 @@ VITE_ADMIN_TOKEN=your_admin_token
 Run frontend:
 
 <p align="center">
-  <img src="./images/runfrontend.jpg" width="500"/>
+  <img src="./images/runfrontend.jpg" width="400"/>
 </p>
+
 
 🔐 Admin Mode
 
-Admin actions (create, updatr, delete)
-are enable when:
+Admin actions (create, update, delete)
+are enabled when:
 
 .VITE_IS_ADMIN-true
 .Valid VITE_ADMIN_TOKEN is provided
 
 This simulates role based access
 control for demonstartion purposes.
+
 
 
 🚀 Future Improvements
@@ -98,7 +100,8 @@ control for demonstartion purposes.
 👩🏽‍💻 Author
 
 Yanay Sanchez Garcia
-Full-Sstack Developer & Artist
+Full-Stack Developer & Artist
+
 
 📄 License
 
@@ -106,5 +109,5 @@ This project is for educational and
 portfolio purposes.
 
 <p align="center">
- <img src="./images/finalstep.jpg" width="500"/>
+ <img src="./images/finalstep.jpg" width="400"/>
 </p>
