@@ -71,6 +71,8 @@ Run frontend:
 </p>
 
 
+---
+
 🔐 Admin Mode
 
 Admin actions (create, update, delete)
@@ -83,6 +85,7 @@ This simulates role based access
 control for demonstartion purposes.
 
 
+---
 
 🚀 Future Improvements
 
@@ -97,11 +100,15 @@ control for demonstartion purposes.
 . Pagination & search
 
 
+---
+
 👩🏽‍💻 Author
 
 Yanay Sanchez Garcia
 Full-Stack Developer & Artist
 
+
+---
 
 📄 License
 
