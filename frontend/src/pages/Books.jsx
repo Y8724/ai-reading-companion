@@ -20,6 +20,7 @@ export default function Books() {
   const [search, setSearch] = useState("");
   const [expandedBook, setExpandedBook] = useState(null);
   const [ratings, setRatings] = useState({});
+  const [loadingSummary, setLoadingSummary] = useState(null);
 
   const [form, setForm] = useState({
     title: "",
@@ -42,13 +43,18 @@ export default function Books() {
   };
 
     const generateSummary = async (bookId) => {
-    try {
-        await axios.post(`${API_URL}${bookId}/summarize/`, {}, authConfig);
-        fetchBooks();
-    } catch (err) {
-        console.error("AI summary failed", err);
-        alert("AI summary failed");
-    }
+        try {
+            setLoadingSummary(bookId);
+
+            await axios.post(`${API_URL}${bookId}/summarize/`, {}, authConfig);
+
+            fetchBooks();
+        } catch (err) {
+            console.error("AI summary failed", err);
+            alert("AI summary failed");
+        } finally {
+            setLoadingSummary(null);
+        }
     };
 
   // Start editing
@@ -116,14 +122,16 @@ export default function Books() {
         <div className="mb-10">
           <form
             onSubmit={handleSubmit}
-            className="bg-white p-6 rounded-xl shadow-md space-y-4"
+            className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md space-y-4"
           >
-            <h2 className="text-xl font-semibold">
+            <h2 className="text-xl font-semibold text-gray-800 dark:text-white">
               {editingId ? "Edit Book" : "Add New Book"}
             </h2>
 
             <input
-              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-indigo-500"
+              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-700
+                text-gray-800 dark:text-white
+                border-gray-300 dark:border-gray-600"
               placeholder="Title"
               value={form.title}
               onChange={(e) =>
@@ -133,7 +141,9 @@ export default function Books() {
             />
 
             <input
-              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-indigo-500"
+              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-700
+                text-gray-800 dark:text-white
+                border-gray-300 dark:border-gray-600"
               placeholder="Author"
               value={form.author}
               onChange={(e) =>
@@ -143,7 +153,9 @@ export default function Books() {
             />
 
             <textarea
-              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-indigo-500"
+              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-700
+                text-gray-800 dark:text-white
+                border-gray-300 dark:border-gray-600"
               placeholder="Notes"
               value={form.notes}
               onChange={(e) =>
@@ -163,19 +175,23 @@ export default function Books() {
 
       {/* HEADER */}
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-semibold">My Books</h2>
+        <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">My Books</h2>
 
         <input
           type="text"
           placeholder="Search books..."
-          className="border rounded-lg px-4 py-2"
+          className="border rounded-xl px-4 py-2
+            bg-white dark:bg-gray-800
+            text-gray-800 dark:text-white
+            border-gray-300 dark:border-gray-700
+            focus:outline-none focus:ring-2 focus:ring-indigo-500"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
 
       {/* BOOK GRID */}
-      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 grid-cols-[repeat(auto-fit,minmax(260px,1fr))] items-start">
 
         {filteredBooks.map((book) => (
             <div
@@ -183,9 +199,11 @@ export default function Books() {
             onClick={() =>
                 setExpandedBook(expandedBook === book.id ? null : book.id)
             }
-            className="group bg-white border border-gray-100 rounded-2xl p-6 
-                        hover:shadow-xl hover:-translate-y-1 
-                        transition-all duration-300 cursor-pointer"
+            className="group bg-white dark:bg-gray-900 
+            border border-gray-100 dark:border-gray-800
+            rounded-2xl p-6
+            hover:shadow-xl hover:-translate-y-1
+            transition-all duration-300 cursor-pointer"
             >
             <div className="flex gap-4">
 
@@ -197,7 +215,7 @@ export default function Books() {
 
               <div>
                 <div className="flex items-center gap-2">
-                <h3 className="text-lg font-semibold text-gray-800">
+                <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
                     {book.title}
                 </h3>
                 </div>
@@ -227,7 +245,7 @@ export default function Books() {
                 </div>
 
                 <p
-                    className={`text-gray-600 mt-2 text-sm ${
+                    className={`text-gray-600 dark:text-gray-300 mt-2 text-sm ${
                         expandedBook === book.id ? "" : "line-clamp-3"
                     }`}
                     >
@@ -248,7 +266,10 @@ export default function Books() {
 
             <button
                 onClick={() => startEdit(book)}
-                className="flex items-center gap-1 px-3 py-1 bg-gray-100 rounded-md hover:bg-gray-200"
+                className="flex items-center gap-1 px-3 py-1 
+                bg-gray-100 dark:bg-gray-700
+                text-gray-800 dark:text-white
+                rounded-md hover:bg-gray-200 dark:hover:bg-gray-600"
             >
                 <Pencil size={14} />
                 Edit
@@ -263,10 +284,14 @@ export default function Books() {
             </button>
 
             <button
-                onClick={() => generateSummary(book.id)}
+                onClick={() => {
+                    console.log("AI button clicked", book.id);
+                    generateSummary(book.id);
+                }}
                 className="flex items-center gap-1 px-3 py-1 bg-indigo-500 text-white rounded-md hover:bg-indigo-600"
-            >
-            ✨ AI Summary
+                >
+                <Sparkles size={14} />
+                AI Summary
             </button>
 
             </div>
