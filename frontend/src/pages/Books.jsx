@@ -3,7 +3,7 @@ import axios from "axios";
 import { IS_ADMIN, ADMIN_TOKEN } from "../config/admin";
 import { BookOpen, Pencil, Trash2, Sparkles, Star } from "lucide-react";
 
-const API_URL = "http://127.0.0.1:8000/books/";
+const API_URL = `${import.meta.env.VITE_API_URL}/books/`;
 
 const authConfig = ADMIN_TOKEN
   ? {
