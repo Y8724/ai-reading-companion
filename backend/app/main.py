@@ -6,7 +6,10 @@ import os
 
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="AI Reading Companion")
+app = FastAPI(title="AI Reading Companion",
+    docs_url="/docs",
+    redoc_url="/redoc"
+)
 
 app.include_router(books.router)
 
