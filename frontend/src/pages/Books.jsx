@@ -36,6 +36,7 @@ export default function Books() {
   const fetchBooks = async () => {
     try {
       const res = await axios.get(API_URL);
+      console.log("Books received:", res.data);
       setBooks(res.data);
     } catch (err) {
       console.error("Failed to load books", err);
