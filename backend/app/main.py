@@ -15,7 +15,7 @@ app.include_router(books.router)
 
 origins = [
     "http://localhost:5173",  # local development
-    "https://ai-reading-companion.onrender.com" # production
+    "https://ai-reading-companion.netlify.app" # production
 ]
 
 app.add_middleware(
