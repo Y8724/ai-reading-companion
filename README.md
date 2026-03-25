@@ -2,34 +2,75 @@
 
 A full-stack web application that helps users track books they read and generate AI-powered summaries and notes.
 
-Build as a portfolio project demonstrating modern full-stack development, API integration, and clean environment configuration.
+## 🚀 Live Demo
+https://ai-reading-companion.netlify.app/
+
+## 🧠 Description
+This application allows users to manage a personal book collection and generate summaries using AI.
+
+It demonstrates full-stack architecture with a React frontend and FastAPI backend.
 
 ---
 
 ## ✨ Features
-
-- 📖 Create, edit and delete books
-- 🤖 Generate AI summaries using OpenAI
-- 🔐 Admin-protected actions (token-base)
-- 📱 Mobile-friendly resposnsive UI
-- ⚙️ Environmnet-safe configuration (no secrets commited)
+- 📖 Add, edit, and delete books (CRUD)
+- 🧠 AI-generated summaries
+- 🔐 Basic admin authentication (token-based)
+- ⚡ REST API integration
+- 📊 Structured backend with validation
 
 ---
 
-## 🧱 Tech Stack
-
-### Frontend
-- React (Vite)
+## 🛠 Tech Stack
+Frontend:
+- React
+- Tailwind CSS
 - Axios
-- CSS (mobile-first, reponsive)
+
+Backend:
+- Python
+- FastAPI
+- Pydantic (data validation)
+
+## ⚙️ Environment Variables
+
+Backend `.env`:
+
+ADMIN_TOKEN=your_secret_token
+
+---
+
+## 📦 Installation
 
 ### Backend
-- FastAPI
-- PostgreSQL
-- SQLAlchemy
-- OpenAI API
+bash
+cd backend
+pip install -r requirements.txt
+uvicorn main:app --reload
 
 ---
+
+Frontend
+
+cd frontend
+npm install
+npm run dev
+
+---
+
+## API Endpoints
+
+GET    /books
+POST   /books
+PUT    /books/{id}
+DELETE /books/{id}
+POST   /summary
+
+---
+
+## 📸 Screenshots
+
+
 
 ## 📂 Project Structure
 
@@ -93,8 +134,6 @@ control for demonstartion purposes.
 
 . Role based permissions
 
-. Deplyment (Render/Railway/Vercel)
-
 . AI prompt customization
 
 . Pagination & search
@@ -105,7 +144,7 @@ control for demonstartion purposes.
 ## 👩🏽‍💻 Author
 
 Yanay Sanchez Garcia
-Full-Stack Developer & Artist
+Full-Stack Developer 
 
 
 ---
@@ -114,7 +153,3 @@ Full-Stack Developer & Artist
 
 This project is for educational and
 portfolio purposes.
-
-<p align="center">
- <img src="./images/finalstep.jpg" width="400"/>
-</p>
