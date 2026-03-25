@@ -3,7 +3,6 @@ import React from "react";
 import App from './App.jsx'
 import "./style.css"
 
-console.log("MAIN.JSX EXECUTED");
 
 const rootElement = document.getElementById("root");
 

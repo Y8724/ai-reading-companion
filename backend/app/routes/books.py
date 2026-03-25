@@ -123,3 +123,5 @@ def generate_summary(
     db.refresh(book)
 
     return book
+
+
