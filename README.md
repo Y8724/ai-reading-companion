@@ -40,24 +40,6 @@ ADMIN_TOKEN=your_secret_token
 
 ---
 
-## 📦 Installation
-
-### Backend
-bash
-cd backend
-pip install -r requirements.txt
-uvicorn main:app --reload
-
----
-
-Frontend
-
-cd frontend
-npm install
-npm run dev
-
----
-
 ## API Endpoints
 
 GET    /books
@@ -70,12 +52,23 @@ POST   /summary
 
 ## 📸 Screenshots
 
+<p align="center">
+  <img src="./screenshots/ai-reading.png" width="400" />
+</p>
+
+<p align="center">
+  <img src="./screenshots/ai-reading1.png" width="400" />
+</p>
+
+<p align="center">
+  <img src="./screenshots/ai-reading2.png" width="400" />
+</p>
 
 
 ## 📂 Project Structure
 
 <p align="center">
-  <img src="./images/project-structure.png" width="400" />
+  <img src="./screenshots/project-structure.png" width="400" />
 </p>
 
 
@@ -94,7 +87,7 @@ ADMIN_TOKEN=your_admin_token
 Install dependencies and run:
 
 <p align="center">
-  <img src="./images/dependenciesrun.jpg" width="400"/>
+  <img src="./screenshots/dependenciesrun.jpg" width="400"/>
 </p>
 
 Frontend
@@ -108,7 +101,7 @@ VITE_ADMIN_TOKEN=your_admin_token
 Run frontend:
 
 <p align="center">
-  <img src="./images/runfrontend.jpg" width="400"/>
+  <img src="./screenshots/runfrontend.jpg" width="400"/>
 </p>
 
 
@@ -130,14 +123,9 @@ control for demonstartion purposes.
 
 ## 🚀 Future Improvements
 
-. User authentication
-
-. Role based permissions
-
-. AI prompt customization
-
-. Pagination & search
-
+- User authentication system (login/register)
+- Improved AI summaries
+- User-specific book collections
 
 ---
 
