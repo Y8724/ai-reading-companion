@@ -28,14 +28,14 @@ export default function Books() {
     notes: "",
   });
 
-  // ✅ LOAD ratings from localStorage
+  // ✅ Load ratings
   useEffect(() => {
-    const savedRatings = JSON.parse(localStorage.getItem("bookRatings")) || {};
-    setRatings(savedRatings);
+    const saved = JSON.parse(localStorage.getItem("bookRatings")) || {};
+    setRatings(saved);
     fetchBooks();
   }, []);
 
-  // ✅ SAVE ratings to localStorage
+  // ✅ Save ratings
   useEffect(() => {
     localStorage.setItem("bookRatings", JSON.stringify(ratings));
   }, [ratings]);
@@ -177,7 +177,7 @@ export default function Books() {
         {filteredBooks.map((book) => (
           <div
             key={book.id}
-            className="bg-white rounded-xl shadow-sm hover:shadow-xl transition flex flex-col h-[380px] p-4"
+            className="bg-white rounded-xl shadow-sm hover:shadow-xl transition p-5 flex flex-col"
           >
             {/* TOP */}
             <div className="flex gap-4">
@@ -198,13 +198,27 @@ export default function Books() {
               </div>
             </div>
 
-            {/* CONTENT */}
-            <p className="text-gray-600 text-sm mt-3 line-clamp-3 flex-grow">
+            {/* TEXT */}
+            <p
+              className={`text-gray-600 text-sm mt-3 ${
+                expandedBook === book.id ? "" : "line-clamp-3"
+              }`}
+            >
               {book.ai_summary || book.notes}
             </p>
 
+            {/* READ MORE */}
+            <button
+              onClick={() =>
+                setExpandedBook(expandedBook === book.id ? null : book.id)
+              }
+              className="text-indigo-600 text-xs mt-1 hover:underline"
+            >
+              {expandedBook === book.id ? "Show less" : "Read more"}
+            </button>
+
             {/* RATING */}
-            <div className="flex gap-1 mt-2">
+            <div className="flex gap-1 mt-3">
               {[1,2,3,4,5].map((star) => (
                 <Star
                   key={star}
@@ -215,7 +229,7 @@ export default function Books() {
                       [book.id]: prev[book.id] === star ? 0 : star,
                     }))
                   }
-                  className={`cursor-pointer transition ${
+                  className={`cursor-pointer ${
                     star <= (ratings[book.id] || 0)
                       ? "text-yellow-400 fill-yellow-400"
                       : "text-gray-300"
@@ -226,7 +240,7 @@ export default function Books() {
 
             {/* ADMIN */}
             {IS_ADMIN && (
-              <div className="flex gap-2 mt-3">
+              <div className="flex gap-2 mt-4 flex-wrap">
                 <button
                   onClick={() => startEdit(book)}
                   className="text-sm bg-gray-200 px-2 py-1 rounded"
@@ -245,7 +259,7 @@ export default function Books() {
                   onClick={() => generateSummary(book.id)}
                   className="text-sm bg-indigo-500 text-white px-2 py-1 rounded"
                 >
-                  {loadingSummary === book.id ? "..." : "AI"}
+                  {loadingSummary === book.id ? "..." : "AI Summary"}
                 </button>
               </div>
             )}
