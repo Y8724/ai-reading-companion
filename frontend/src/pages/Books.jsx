@@ -240,16 +240,15 @@ export default function Books() {
 
                 {/* READ MORE */}
                 <button
-                  onClick={() =>
+                  onClick={(e) => {
+                    e.stopPropagation(); // ✅ prevents weird bubbling
                     setExpandedBook(
                       expandedBook === book.id ? null : book.id
-                    )
-                  }
+                    );
+                  }}
                   className="text-indigo-500 text-xs mt-1 hover:underline"
                 >
-                  {expandedBook === book.id
-                    ? "Show less"
-                    : "Read more"}
+                  {expandedBook === book.id ? "Show less" : "Read more"}
                 </button>
               </div>
             </div>
