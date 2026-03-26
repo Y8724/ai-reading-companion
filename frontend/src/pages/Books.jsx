@@ -122,33 +122,39 @@ export default function Books() {
         <div className="mb-10">
           <form
             onSubmit={handleSubmit}
-            className="bg-white p-6 rounded-xl shadow-md space-y-4"
+            className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md space-y-4"
           >
-            <h2 className="text-xl font-semibold">
+            <h2 className="text-xl font-semibold text-gray-800 dark:text-white">
               {editingId ? "Edit Book" : "Add New Book"}
             </h2>
 
             <input
-              className="w-full border rounded-lg p-3"
+              className="w-full border rounded-lg p-3 bg-white dark:bg-gray-700 text-gray-800 dark:text-white border-gray-300 dark:border-gray-600"
               placeholder="Title"
               value={form.title}
-              onChange={(e) => setForm({ ...form, title: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, title: e.target.value })
+              }
               required
             />
 
             <input
-              className="w-full border rounded-lg p-3"
+              className="w-full border rounded-lg p-3 bg-white dark:bg-gray-700 text-gray-800 dark:text-white border-gray-300 dark:border-gray-600"
               placeholder="Author"
               value={form.author}
-              onChange={(e) => setForm({ ...form, author: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, author: e.target.value })
+              }
               required
             />
 
             <textarea
-              className="w-full border rounded-lg p-3"
+              className="w-full border rounded-lg p-3 bg-white dark:bg-gray-700 text-gray-800 dark:text-white border-gray-300 dark:border-gray-600"
               placeholder="Notes"
               value={form.notes}
-              onChange={(e) => setForm({ ...form, notes: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, notes: e.target.value })
+              }
             />
 
             <button className="bg-indigo-600 text-white px-5 py-2 rounded-lg">
@@ -160,82 +166,92 @@ export default function Books() {
 
       {/* HEADER */}
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-semibold">My Books</h2>
+        <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">
+          My Books
+        </h2>
 
         <input
           type="text"
           placeholder="Search books..."
-          className="border rounded-xl px-4 py-2"
+          className="border rounded-xl px-4 py-2 bg-white dark:bg-gray-800 text-gray-800 dark:text-white border-gray-300 dark:border-gray-700"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
 
       {/* GRID */}
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
         {filteredBooks.map((book) => (
           <div
             key={book.id}
-            className="bg-white rounded-xl shadow-sm hover:shadow-xl transition p-5 flex flex-col"
+            className="group bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl p-5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
           >
-            {/* TOP */}
             <div className="flex gap-4">
+
               <img
                 src={`https://covers.openlibrary.org/b/title/${book.title}-M.jpg`}
-                alt="cover"
+                alt="book cover"
                 className="w-16 h-24 object-cover rounded-lg"
               />
 
-              <div>
-                <h3 className="text-sm font-semibold line-clamp-2">
+              <div className="flex-1">
+
+                <h3 className="text-base font-semibold text-gray-800 dark:text-white">
                   {book.title}
                 </h3>
 
-                <p className="text-xs text-gray-500">
+                <p className="text-sm text-indigo-500">
                   {book.author}
                 </p>
-              </div>
-            </div>
 
-            {/* TEXT */}
-            <p
-              className={`text-gray-600 text-sm mt-3 ${
-                expandedBook === book.id ? "" : "line-clamp-3"
-              }`}
-            >
-              {book.ai_summary || book.notes}
-            </p>
+                {/* ⭐ RATING */}
+                <div className="flex gap-1 mt-2">
+                  {[1,2,3,4,5].map((star) => (
+                    <Star
+                      key={star}
+                      size={18}
+                      onClick={() =>
+                        setRatings((prev) => ({
+                          ...prev,
+                          [book.id]:
+                            prev[book.id] === star ? 0 : star,
+                        }))
+                      }
+                      className={`cursor-pointer ${
+                        star <= (ratings[book.id] || 0)
+                          ? "text-yellow-400 fill-yellow-400"
+                          : "text-gray-300 dark:text-gray-600"
+                      }`}
+                    />
+                  ))}
+                </div>
 
-            {/* READ MORE */}
-            <button
-              onClick={() =>
-                setExpandedBook(expandedBook === book.id ? null : book.id)
-              }
-              className="text-indigo-600 text-xs mt-1 hover:underline"
-            >
-              {expandedBook === book.id ? "Show less" : "Read more"}
-            </button>
-
-            {/* RATING */}
-            <div className="flex gap-1 mt-3">
-              {[1,2,3,4,5].map((star) => (
-                <Star
-                  key={star}
-                  size={18}
-                  onClick={() =>
-                    setRatings((prev) => ({
-                      ...prev,
-                      [book.id]: prev[book.id] === star ? 0 : star,
-                    }))
-                  }
-                  className={`cursor-pointer ${
-                    star <= (ratings[book.id] || 0)
-                      ? "text-yellow-400 fill-yellow-400"
-                      : "text-gray-300"
+                {/* TEXT */}
+                <p
+                  className={`text-sm mt-2 text-gray-600 dark:text-gray-300 ${
+                    expandedBook === book.id
+                      ? ""
+                      : "line-clamp-3"
                   }`}
-                />
-              ))}
+                >
+                  {book.ai_summary || book.notes}
+                </p>
+
+                {/* READ MORE */}
+                <button
+                  onClick={() =>
+                    setExpandedBook(
+                      expandedBook === book.id ? null : book.id
+                    )
+                  }
+                  className="text-indigo-500 text-xs mt-1 hover:underline"
+                >
+                  {expandedBook === book.id
+                    ? "Show less"
+                    : "Read more"}
+                </button>
+              </div>
             </div>
 
             {/* ADMIN */}
@@ -243,23 +259,25 @@ export default function Books() {
               <div className="flex gap-2 mt-4 flex-wrap">
                 <button
                   onClick={() => startEdit(book)}
-                  className="text-sm bg-gray-200 px-2 py-1 rounded"
+                  className="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white px-3 py-1 rounded-md"
                 >
                   Edit
                 </button>
 
                 <button
                   onClick={() => handleDelete(book.id)}
-                  className="text-sm bg-red-500 text-white px-2 py-1 rounded"
+                  className="bg-red-500 text-white px-3 py-1 rounded-md"
                 >
                   Delete
                 </button>
 
                 <button
                   onClick={() => generateSummary(book.id)}
-                  className="text-sm bg-indigo-500 text-white px-2 py-1 rounded"
+                  className="bg-indigo-500 text-white px-3 py-1 rounded-md"
                 >
-                  {loadingSummary === book.id ? "..." : "AI Summary"}
+                  {loadingSummary === book.id
+                    ? "..."
+                    : "AI Summary"}
                 </button>
               </div>
             )}
