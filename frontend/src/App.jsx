@@ -19,66 +19,65 @@ export default function App() {
     }, [darkMode]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 dark:from-gray-950 dark:to-gray-900">
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-orange-50 via-fuchsia-50 to-cyan-50 dark:from-gray-950 dark:via-purple-950 dark:to-gray-950">
 
-      <header className="text-center py-8 border-b border-gray-800">
-        <div className="max-w-6xl mx-auto py-6 text-center">
-          <h1 className="text-4xl font-bold text-indigo-600 dark:text-indigo-400">
-            AI Reading Companion
-          </h1>
+      {/* decorative floating gradient blobs */}
+      <div className="blob w-96 h-96 -top-20 -left-20 bg-fuchsia-400 dark:bg-fuchsia-700 animate-float" />
+      <div className="blob w-96 h-96 top-40 -right-24 bg-amber-300 dark:bg-amber-600 animate-float-delayed" />
+      <div className="blob w-80 h-80 bottom-0 left-1/3 bg-cyan-300 dark:bg-cyan-700 animate-float" />
 
-          <button
-            onClick={() => setDarkMode(!darkMode)}
-            className="
-                fixed top-6 right-6
-                p-3
-                rounded-xl
-                bg-gray-800
-                text-white
-                hover:bg-gray-700
-                transition
-                shadow-lg
-            "
+      {/* fixed controls live outside the header so backdrop-blur there can't hijack their containing block */}
+      <button
+        onClick={() => setDarkMode(!darkMode)}
+        className="fixed top-6 right-6 z-20 p-3 rounded-xl bg-gradient-to-br from-violet-600 to-fuchsia-600 text-white hover:scale-105 transition shadow-lg shadow-fuchsia-500/30"
+        >
+        {darkMode ? <Sun size={18}/> : <Moon size={18}/>}
+      </button>
+
+      {!loading && (
+        <div className="fixed top-6 left-6 z-20">
+          {user ? (
+            <button
+              onClick={logout}
+              className="p-3 rounded-xl bg-gradient-to-br from-orange-500 to-rose-500 text-white hover:scale-105 transition shadow-lg shadow-rose-500/30 text-sm"
             >
-            {darkMode ? <Sun size={18}/> : <Moon size={18}/>}
-          </button>
-
-          {!loading && (
-            <div className="fixed top-6 left-6">
-              {user ? (
-                <button
-                  onClick={logout}
-                  className="p-3 rounded-xl bg-gray-800 text-white hover:bg-gray-700 transition shadow-lg text-sm"
-                >
-                  Log out ({user.email})
-                </button>
-              ) : (
-                <button
-                  onClick={() => setShowLogin(true)}
-                  className="p-3 rounded-xl bg-gray-800 text-white hover:bg-gray-700 transition shadow-lg text-sm"
-                >
-                  Log in
-                </button>
-              )}
-            </div>
+              Log out ({user.email})
+            </button>
+          ) : (
+            <button
+              onClick={() => setShowLogin(true)}
+              className="p-3 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white hover:scale-105 transition shadow-lg shadow-cyan-500/30 text-sm"
+            >
+              Log in
+            </button>
           )}
-
-          <p className="text-gray-600 dark:text-gray-400 mt-2">
-            Track books, generate AI summaries, and keep reading notes.
-          </p>
-        </div>
-      </header>
-
-      {showLogin && !user && (
-        <div className="max-w-6xl mx-auto px-6 mb-6">
-          <LoginForm onClose={() => setShowLogin(false)} />
         </div>
       )}
 
-      <main className="max-w-6xl mx-auto p-6">
-        <PublicCollection />
-        <Books />
-      </main>
+      <div className="relative">
+        <header className="text-center pt-24 pb-8 sm:py-8 border-b border-white/40 dark:border-white/10 backdrop-blur-sm">
+          <div className="max-w-6xl mx-auto sm:py-6 text-center">
+            <h1 className="gradient-text animate-gradient-x bg-300% text-3xl sm:text-5xl font-extrabold tracking-tight">
+              AI Reading Companion
+            </h1>
+
+            <p className="text-gray-600 dark:text-gray-300 mt-3">
+              Track books, generate AI summaries, and keep reading notes.
+            </p>
+          </div>
+        </header>
+
+        {showLogin && !user && (
+          <div className="max-w-6xl mx-auto px-6 mt-6">
+            <LoginForm onClose={() => setShowLogin(false)} />
+          </div>
+        )}
+
+        <main className="max-w-6xl mx-auto p-6">
+          <PublicCollection />
+          <Books />
+        </main>
+      </div>
 
     </div>
   );

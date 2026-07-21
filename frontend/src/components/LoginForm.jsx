@@ -42,15 +42,15 @@ export default function LoginForm({ onClose }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md space-y-4 max-w-sm mx-auto"
+      className="animate-fade-in-up bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg ring-1 ring-cyan-200 dark:ring-cyan-900 space-y-4 max-w-sm mx-auto"
     >
-      <h2 className="text-xl font-semibold text-gray-800 dark:text-white">
+      <h2 className="text-xl font-semibold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
         {mode === "login" ? "Log In" : "Sign Up"}
       </h2>
 
       <input
         type="email"
-        className="w-full border rounded-lg p-3 bg-white dark:bg-gray-700 text-gray-800 dark:text-white border-gray-300 dark:border-gray-600"
+        className="w-full border rounded-lg p-3 bg-white dark:bg-gray-700 text-gray-800 dark:text-white border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-cyan-400"
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
@@ -59,7 +59,7 @@ export default function LoginForm({ onClose }) {
 
       <input
         type="password"
-        className="w-full border rounded-lg p-3 bg-white dark:bg-gray-700 text-gray-800 dark:text-white border-gray-300 dark:border-gray-600"
+        className="w-full border rounded-lg p-3 bg-white dark:bg-gray-700 text-gray-800 dark:text-white border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-cyan-400"
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
@@ -72,7 +72,7 @@ export default function LoginForm({ onClose }) {
       <button
         type="submit"
         disabled={submitting}
-        className="bg-indigo-600 text-white px-5 py-2 rounded-lg disabled:opacity-50"
+        className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-5 py-2.5 rounded-lg font-medium hover:scale-[1.02] hover:shadow-lg hover:shadow-cyan-500/30 transition disabled:opacity-50 disabled:hover:scale-100"
       >
         {submitting
           ? mode === "login" ? "Logging in..." : "Signing up..."
@@ -85,7 +85,7 @@ export default function LoginForm({ onClose }) {
           setMode(mode === "login" ? "register" : "login");
           setError("");
         }}
-        className="text-indigo-500 text-sm hover:underline block"
+        className="text-cyan-600 dark:text-cyan-400 text-sm hover:underline block"
       >
         {mode === "login"
           ? "Need an account? Sign up"

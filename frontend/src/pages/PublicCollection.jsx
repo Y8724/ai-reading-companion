@@ -25,15 +25,17 @@ export default function PublicCollection() {
 
   return (
     <div className="max-w-6xl mx-auto mb-12">
-      <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-6">
+      <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-6 flex items-center gap-2">
+        <span className="w-2 h-6 rounded-full bg-gradient-to-b from-amber-400 to-orange-500" />
         Public Collection
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
-        {books.map((book) => (
+        {books.map((book, index) => (
           <BookCard
             key={book.id}
             book={book}
+            index={index}
             rating={ratings[book.id]}
             onRate={(star) =>
               setRatings((prev) => ({
