@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Books from "./pages/Books";
+import PublicCollection from "./pages/PublicCollection";
 import LoginForm from "./components/LoginForm";
 import { useAuth } from "./AuthContext";
 import { Moon, Sun } from "lucide-react";
@@ -56,7 +57,7 @@ export default function App() {
                   onClick={() => setShowLogin(true)}
                   className="p-3 rounded-xl bg-gray-800 text-white hover:bg-gray-700 transition shadow-lg text-sm"
                 >
-                  Admin login
+                  Log in
                 </button>
               )}
             </div>
@@ -75,6 +76,7 @@ export default function App() {
       )}
 
       <main className="max-w-6xl mx-auto p-6">
+        <PublicCollection />
         <Books />
       </main>
 
