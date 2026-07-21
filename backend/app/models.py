@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Text
+from sqlalchemy import Column, Integer, String, Text, DateTime, func
 from .database import Base
 
 class Book(Base):
@@ -12,4 +12,11 @@ class Book(Base):
     notes = Column(Text)
     ai_summary = Column(Text)
 
-    
+
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, unique=True, nullable=False, index=True)
+    hashed_password = Column(String, nullable=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())

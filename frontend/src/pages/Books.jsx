@@ -1,20 +1,11 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { IS_ADMIN, ADMIN_TOKEN } from "../config/admin";
+import api from "../api";
+import { useAuth } from "../AuthContext";
 import { Pencil, Trash2, Sparkles, Star } from "lucide-react";
 
-const API_URL = `${import.meta.env.VITE_API_URL}/books/`;
-
-const authConfig = ADMIN_TOKEN
-  ? {
-      headers: {
-        Authorization: `Bearer ${ADMIN_TOKEN}`,
-        "Content-Type": "application/json",
-      },
-    }
-  : null;
-
 export default function Books() {
+  const { user } = useAuth();
+  const isAdmin = !!user;
   const [books, setBooks] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [search, setSearch] = useState("");
@@ -42,7 +33,7 @@ export default function Books() {
 
   const fetchBooks = async () => {
     try {
-      const res = await axios.get(API_URL);
+      const res = await api.get("/books/");
       setBooks(res.data);
     } catch (err) {
       console.error("Failed to load books", err);
@@ -52,7 +43,7 @@ export default function Books() {
   const generateSummary = async (bookId) => {
     try {
       setLoadingSummary(bookId);
-      await axios.post(`${API_URL}${bookId}/summarize/`, {}, authConfig);
+      await api.post(`/books/${bookId}/summarize/`);
       fetchBooks();
     } catch (err) {
       console.error("AI summary failed", err);
@@ -74,16 +65,16 @@ export default function Books() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!authConfig) {
-      alert("Admin token missing");
+    if (!isAdmin) {
+      alert("You must be logged in");
       return;
     }
 
     try {
       if (editingId) {
-        await axios.put(`${API_URL}${editingId}/`, form, authConfig);
+        await api.put(`/books/${editingId}/`, form);
       } else {
-        await axios.post(API_URL, form, authConfig);
+        await api.post("/books/", form);
       }
 
       setForm({ title: "", author: "", notes: "" });
@@ -96,13 +87,13 @@ export default function Books() {
   };
 
   const handleDelete = async (id) => {
-    if (!authConfig) {
-      alert("Admin token missing");
+    if (!isAdmin) {
+      alert("You must be logged in");
       return;
     }
 
     try {
-      await axios.delete(`${API_URL}${id}/`, authConfig);
+      await api.delete(`/books/${id}/`);
       fetchBooks();
     } catch (err) {
       console.error("Delete failed", err);
@@ -118,7 +109,7 @@ export default function Books() {
     <div className="max-w-6xl mx-auto">
 
       {/* ADMIN FORM */}
-      {IS_ADMIN && (
+      {isAdmin && (
         <div className="mb-10">
           <form
             onSubmit={handleSubmit}
@@ -254,7 +245,7 @@ export default function Books() {
             </div>
 
             {/* ADMIN */}
-            {IS_ADMIN && (
+            {isAdmin && (
               <div className="flex gap-2 mt-4 flex-wrap">
                 <button
                   onClick={() => startEdit(book)}

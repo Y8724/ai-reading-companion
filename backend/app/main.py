@@ -1,10 +1,7 @@
 from fastapi import FastAPI
-from .database import Base, engine
-from .routes import books
+from .routes import books, auth
 from fastapi.middleware.cors import CORSMiddleware
 import os
-
-Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="AI Reading Companion",
     docs_url="/docs",
@@ -12,6 +9,7 @@ app = FastAPI(title="AI Reading Companion",
 )
 
 app.include_router(books.router)
+app.include_router(auth.router)
 
 origins = [
     "http://localhost:5173",  # local development
@@ -20,7 +18,7 @@ origins = [
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

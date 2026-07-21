@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "backend",
+      "runtimeExecutable": "/Users/apple/Desktop/Web-dvelopment/ai reading companion/venv/bin/python3.11",
+      "runtimeArgs": ["-m", "uvicorn", "app.main:app", "--reload", "--port", "8000", "--app-dir", "/Users/apple/Desktop/Web-dvelopment/ai reading companion/backend"],
+      "port": 8000
+    },
+    {
+      "name": "frontend",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "/Users/apple/Desktop/Web-dvelopment/ai reading companion/frontend", "run", "dev"],
+      "port": 5173
+    }
+  ]
+}

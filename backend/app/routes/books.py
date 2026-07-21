@@ -4,7 +4,8 @@ from ..database import SessionLocal
 from ..models import Book
 from ..schemas import BookCreate, BookUpdate, BookOut
 from ..services.ai_service import summarize
-from ..auth import admin_required
+from ..auth import get_current_user
+from ..models import User
 
 router = APIRouter(prefix="/books", tags=["Books"])
 
@@ -19,7 +20,7 @@ def get_db():
 @router.post("/", response_model=BookOut)
 def create_book(
     book: BookCreate,
-    _: bool = Depends(admin_required),
+    _: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
 
@@ -63,7 +64,7 @@ def get_book(book_id: int, db: Session = Depends(get_db)):
 def update_book(
     book_id: int,
     data: BookUpdate,
-    _: bool = Depends(admin_required),
+    _: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
 
@@ -86,7 +87,7 @@ def update_book(
 @router.delete("/{book_id}")
 def delete_book(
     book_id: int,
-    _: bool = Depends(admin_required),
+    _: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
 
@@ -102,7 +103,7 @@ def delete_book(
 @router.post("/{book_id}/summarize", response_model=BookOut)
 def generate_summary(
     book_id: int,
-    _: bool = Depends(admin_required),
+    _: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
     book = db.get(Book, book_id)

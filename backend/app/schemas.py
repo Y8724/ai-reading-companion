@@ -24,3 +24,15 @@ class BookOut(BookBase):
     ai_summary: Optional[str] = None
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class LoginRequest(BaseModel):
+    email: str
+    password: str
+
+
+class UserOut(BaseModel):
+    id: int
+    email: str
+
+    model_config = ConfigDict(from_attributes=True)
