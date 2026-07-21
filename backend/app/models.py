@@ -11,6 +11,7 @@ class Book(Base):
     description = Column(Text, nullable=True)
     notes = Column(Text)
     ai_summary = Column(Text)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
 
 
 class User(Base):

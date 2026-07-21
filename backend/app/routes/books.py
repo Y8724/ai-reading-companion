@@ -48,7 +48,7 @@ def create_book(
 #read all
 @router.get("/", response_model=list[BookOut])
 def get_books(db: Session = Depends(get_db)):
-    return db.query(Book).order_by(Book.id.desc()).all()
+    return db.query(Book).order_by(Book.created_at.desc()).all()
 
 #read one
 @router.get("/{book_id}", response_model=BookOut)

@@ -1,5 +1,6 @@
 from pydantic import BaseModel, ConfigDict
 from typing import Optional
+from datetime import datetime
 
 
 class BookBase(BaseModel):
@@ -22,6 +23,7 @@ class BookUpdate(BookBase):
 class BookOut(BookBase):
     id: int
     ai_summary: Optional[str] = None
+    created_at: Optional[datetime] = None
 
     model_config = ConfigDict(from_attributes=True)
 
